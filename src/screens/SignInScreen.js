@@ -19,7 +19,6 @@ const SignInScreen = () => {
         navigation.navigate('HomePage');
     };
 
-
     // -----------------------------------------------------------
 
     const getEmailsList = async () => {
@@ -35,15 +34,16 @@ const SignInScreen = () => {
             })
             .catch(error => console.log('error', error));
 
-            if (employeesEmail.includes(userEmail) == true) {
+            if (employeesEmail.includes(CustomInput.value) == true) {
                 onSignInPressed();
             } else {
                 console.log("It didn't get through.")
+                console.log(CustomInput.name)
                 return
             }
     };
 
-    getEmailsList();
+    // getEmailsList();
 
     // -----------------------------------------------------------
 
@@ -70,6 +70,7 @@ const SignInScreen = () => {
                 control={control}
                 rules={{ required: 'Username is required' }}
             />
+
             <CustomInput
                 name="password"
                 placeholder="Password"
