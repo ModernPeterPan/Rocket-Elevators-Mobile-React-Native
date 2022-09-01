@@ -19,6 +19,43 @@ const SignInScreen = () => {
         navigation.navigate('HomePage');
     };
 
+
+    // -----------------------------------------------------------
+
+    const getEmailsList = async () => {
+        const employeesEmail = []
+        fetch("https://localhost:8889/api/employees")
+            .then(response => response.json())
+            .then(function (result) {
+                //console.log('Result', result)
+                for (var i = 0; i < result.length; i++) {
+                    employeesEmail.push(result[i]["email"])
+                }
+                console.log('Emails', employeesEmail)
+            })
+            .catch(error => console.log('error', error));
+
+            if (employeesEmail.includes(userEmail) == true) {
+                onSignInPressed();
+            } else {
+                console.log("It didn't get through.")
+                return
+            }
+    };
+
+    getEmailsList();
+
+    // -----------------------------------------------------------
+
+    // const verifyEmail = () => {
+    //     if (CustomInput.name == employeesEmail) {
+           
+    //         // return {handleSubmit(onSignInPressed)}
+    //     }
+    // }
+
+    // -----------------------------------------------------------
+
     return (
         <View style={styles.root}>
             <Image
@@ -47,7 +84,7 @@ const SignInScreen = () => {
                 }}
             />
 
-            <CustomButton text="Sign In" onPress={handleSubmit(onSignInPressed)} />
+            <CustomButton text="Sign In" onPress={handleSubmit(getEmailsList)} />
         </View>
     )
 }
